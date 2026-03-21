@@ -7,6 +7,7 @@ import PageLoader from "./components/PageLoader";
 import InventoryPage from "./views/Inventory/InventoryPage";
 import PaymentsPage from "./views/PaymentsPage";
 import CustomerDetailsPage from "./views/CustomerDetailsPage";
+import Layout from "./components/Layout";
 
 const ProtectedRoute = () => {
   const { user, status } = useCurrentUser();
@@ -30,11 +31,13 @@ const AppRoutes = () => {
 
       {/* Protected routes */}
       <Route element={<ProtectedRoute />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path ="/products" element={<InventoryPage/>} />
-        <Route path="/payments" element={<PaymentsPage />} />
-        <Route path="/customers" element={<CustomerDetailsPage />} />
+        <Route element={<Layout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/products" element={<InventoryPage />} />
+          <Route path="/payments" element={<PaymentsPage />} />
+          <Route path="/customers" element={<CustomerDetailsPage />} />
+        </Route>
       </Route>
     </Routes>
   );
