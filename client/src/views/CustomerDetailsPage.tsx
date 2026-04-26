@@ -22,6 +22,9 @@ const CustomerDetailsPage = () => {
     queryFn: getCustomerDetails,
   });
 
+  const visibleCustomerDetails = customerDetails?.filter(
+    (item) => item.customer !== null
+  );
   if (isLoading) {
     return (
       <main className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100">
@@ -66,17 +69,17 @@ const CustomerDetailsPage = () => {
             Customer Payments
           </h1>
           <p className="text-slate-300">
-            {customerDetails?.length || 0} record{customerDetails && customerDetails.length !== 1 ? "s" : ""} found
+            {visibleCustomerDetails?.length || 0} record{visibleCustomerDetails && visibleCustomerDetails.length !== 1 ? "s" : ""} found
           </p>
         </div>
 
-        {(!customerDetails || customerDetails.length === 0) ? (
+        {(!visibleCustomerDetails || visibleCustomerDetails.length === 0) ? (
           <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-12 text-center">
             <p className="text-slate-300">No customer payment records found</p>
           </div>
         ) : (
           <div className="space-y-6">
-            {customerDetails.map((item, index) => (
+            {visibleCustomerDetails.map((item, index) => (
               <div
                 key={`${item.payment.paymentId}-${index}`}
                 className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl"
@@ -112,7 +115,7 @@ const CustomerDetailsPage = () => {
                 </div>
 
                 {/* Payment header */}
-                <div className="border-b border-white/10 bg-gradient-to-r from-cyan-500/10 to-transparent p-6">
+                <div className="border-b border-white/10 bg-linear-to-r from-cyan-500/10 to-transparent p-6">
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     <div>
                       <p className="text-xs uppercase tracking-wider text-slate-400">
